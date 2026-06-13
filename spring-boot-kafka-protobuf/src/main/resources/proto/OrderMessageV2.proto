@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+// MUST match V1 exactly so Schema Registry knows it's the same message
+package com.dinesh.springbootkafkaprotobuf.model;
+
+option java_outer_classname = "OrderMessageOuterClass";
+option java_multiple_files = false;
+
+message OrderMessage {
+  // Nested Enum to avoid namespace collisions in Schema Registry
+  enum OrderStatus {
+    ORDER_STATUS_UNSPECIFIED = 0;
+    PENDING = 1;
+    CONFIRMED = 2;
+    SHIPPED = 3;
+    DELIVERED = 4;
+    CANCELLED = 5;
+  }
+
+  // --- V1 FIELDS (Untouched) ---
+  string orderId = 1;
+  string product = 2;
+  int32 quantity = 3;
+
+  // --- V2 NEW FIELDS ---
+  double price = 4;
+  string customer_id = 5;
+  OrderStatus status = 6;
+  int64 created_at = 7;
+}
