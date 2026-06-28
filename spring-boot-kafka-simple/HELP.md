@@ -1,44 +1,400 @@
-# Read Me First
+# Spring Boot Kafka Simple
 
-The following was discovered as part of building this project:
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-21-orange?style=for-the-badge&logo=openjdk" />
+  <img src="https://img.shields.io/badge/Spring%20Boot-4.x-brightgreen?style=for-the-badge&logo=springboot" />
+  <img src="https://img.shields.io/badge/Apache-Kafka-black?style=for-the-badge&logo=apachekafka" />
+  <img src="https://img.shields.io/badge/Docker-Compose-blue?style=for-the-badge&logo=docker" />
+  <img src="https://img.shields.io/badge/Maven-Build-red?style=for-the-badge&logo=apachemaven" />
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" />
+</p>
 
-* No Docker Compose services found. As of now, the application won't start! Please add at least one service to the
-  `compose.yaml` file.
+A simple Spring Boot application demonstrating Apache Kafka Producer and Consumer implementation for both String and JSON messages using Spring Kafka.
 
-# Getting Started
+---
 
-### Reference Documentation
+## Features
 
-For further reference, please consider the following sections:
+- Kafka Producer
+- Kafka Consumer
+- String Message Publishing
+- JSON Message Publishing
+- Spring Boot REST APIs
+- Docker Compose Setup
+- Kafka UI Dashboard
+- AKHQ Dashboard
+- Multiple KafkaTemplate Configuration
+- Multiple Listener Container Factories
+- JSON Serialization & Deserialization
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/4.0.6/maven-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/4.0.6/maven-plugin/build-image.html)
-* [Docker Compose Support](https://docs.spring.io/spring-boot/4.0.6/reference/features/dev-services.html#features.dev-services.docker-compose)
-* [Spring for Apache Kafka](https://docs.spring.io/spring-boot/4.0.6/reference/messaging/kafka.html)
-* [Spring Web](https://docs.spring.io/spring-boot/4.0.6/reference/web/servlet.html)
+---
 
-### Guides
+## Tech Stack
 
-The following guides illustrate how to use some features concretely:
+| Technology | Version |
+|------------|----------|
+| Java | 21 |
+| Spring Boot | 3.x |
+| Spring Kafka | Latest |
+| Apache Kafka | Latest |
+| Docker Compose | Latest |
+| Maven | Latest |
 
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
+---
 
-### Docker Compose support
+## Project Structure
 
-This project contains a Docker Compose file named `compose.yaml`.
+```text
+spring-boot-kafka-simple
+├── screenshots
+├── src/main/java
+│   ├── config
+│   ├── consumer
+│   ├── controller
+│   ├── model
+│   └── producer
+├── src/main/resources
+├── compose.yaml
+├── pom.xml
+└── HELP.md
+````
 
-However, no services were found. As of now, the application won't start!
+---
 
-Please make sure to add at least one service in the `compose.yaml` file.
+## Kafka Topics
 
-### Maven Parent overrides
+| Topic      | Payload Type |
+| ---------- | ------------ |
+| demo-topic | String       |
+| json-topic | OrderMessage |
 
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the
-parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
+---
 
+## OrderMessage Model
+
+```java
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrderMessage {
+
+    private String orderId;
+    private String product;
+    private int quantity;
+}
+```
+
+### Sample JSON Payload
+
+```json
+{
+  "orderId": "ORD-1001",
+  "product": "Laptop",
+  "quantity": 2
+}
+```
+
+---
+
+## REST APIs
+
+### Send String Message
+
+#### Endpoint
+
+```http
+GET /
+```
+
+#### Example
+
+```bash
+curl "http://localhost:8080/?message=Hello Kafka"
+```
+
+#### Response
+
+```text
+Successfully sent message to Kafka: Hello Kafka
+```
+
+---
+
+### Send JSON Message
+
+#### Endpoint
+
+```http
+POST /json
+```
+
+#### Request Body
+
+```json
+{
+  "orderId": "ORD-1001",
+  "product": "Laptop",
+  "quantity": 2
+}
+```
+
+#### Example
+
+```bash
+curl --location 'http://localhost:8080/json' \
+--header 'Content-Type: application/json' \
+--data '{
+  "orderId": "ORD-1001",
+  "product": "Laptop",
+  "quantity": 2
+}'
+```
+
+#### Response
+
+```text
+Message sent : OrderMessage(orderId=ORD-1001, product=Laptop, quantity=2)
+```
+
+---
+
+## Kafka Message Flow
+
+### String Message Flow
+
+```text
+Client
+   |
+   v
+GET /?message=Hello Kafka
+   |
+   v
+KafkaProducer
+   |
+   v
+demo-topic
+   |
+   v
+KafkaConsumer.consume()
+```
+
+### JSON Message Flow
+
+```text
+Client
+   |
+   v
+POST /json
+   |
+   v
+KafkaProducer
+   |
+   v
+json-topic
+   |
+   v
+KafkaConsumer.consumeJson()
+```
+
+---
+
+## Running Kafka Using Docker
+
+Start services:
+
+```bash
+docker compose up -d
+```
+
+Stop services:
+
+```bash
+docker compose down
+```
+
+Check running containers:
+
+```bash
+docker ps
+```
+
+---
+
+## Build Project
+
+```bash
+mvn clean install
+```
+
+---
+
+## Run Application
+
+```bash
+mvn spring-boot:run
+```
+
+or
+
+```bash
+java -jar target/spring-boot-kafka-simple.jar
+```
+
+---
+
+## Testing
+
+### String Message
+
+```bash
+curl "http://localhost:8080/?message=Hello Kafka"
+```
+
+### JSON Message
+
+```bash
+curl --location 'http://localhost:8080/json' \
+--header 'Content-Type: application/json' \
+--data '{
+  "orderId": "ORD-1001",
+  "product": "Laptop",
+  "quantity": 2
+}'
+```
+
+---
+
+## Sample Logs
+
+### String Message
+
+Producer
+
+```text
+Sending Message to Kafka: Hello Kafka
+```
+
+Consumer
+
+```text
+Received message from Kafka: Hello Kafka
+```
+
+### JSON Message
+
+Producer
+
+```text
+Sending JSON Message to Kafka:
+OrderMessage(orderId=ORD-1001, product=Laptop, quantity=2)
+```
+
+Consumer
+
+```text
+Received JSON object from Kafka:
+OrderMessage(orderId=ORD-1001, product=Laptop, quantity=2)
+
+Parsed Order Product: Laptop
+```
+
+---
+
+## Screenshots
+
+### Kafka UI Dashboard
+
+![Kafka UI Dashboard](screenshots/apache-kafka-ui-dashboard.png)
+
+### Kafka UI Topic Dashboard
+
+![Kafka UI Topic Dashboard](screenshots/apache-kafka-ui-topic-dashboard.png)
+
+### AKHQ Dashboard
+
+![AKHQ Dashboard](screenshots/akhq-dashboard.png)
+
+### AKHQ Topic Dashboard
+
+![AKHQ Topic Dashboard](screenshots/akhq-topic-dashboard.png)
+
+### String Message Send & Receive
+
+![String Message](screenshots/string-message-send-receiving.png)
+
+### JSON Message Send & Receive
+
+![JSON Message](screenshots/json-message-send-receiving.png)
+
+---
+
+## Future Enhancements
+
+* Kafka Protobuf Integration
+* Kafka Avro Integration
+* Schema Registry
+* Retry Mechanism
+* Dead Letter Queue (DLQ)
+* Kafka Streams
+* Batch Consumers
+* Manual Acknowledgement
+* Transactional Messaging
+
+---
+
+## Contributing
+
+Contributions are welcome!
+
+1. Fork the repository
+2. Create a feature branch
+
+```bash
+git checkout -b feature/my-feature
+```
+
+3. Commit your changes
+
+```bash
+git commit -m "Add new feature"
+```
+
+4. Push to GitHub
+
+```bash
+git push origin feature/my-feature
+```
+
+5. Create a Pull Request
+
+---
+
+## Support
+
+If you found this project useful:
+
+⭐ Star the repository
+
+🐛 Report issues
+
+💡 Suggest improvements
+
+---
+
+## Contact
+
+### Dinesh Veer
+
+GitHub: [https://github.com/dinesh-veer](https://github.com/dinesh-veer)
+
+Repository:
+
+[https://github.com/dinesh-veer/spring-boot-kafka](https://github.com/dinesh-veer/spring-boot-kafka)
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+```
