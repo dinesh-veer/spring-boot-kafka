@@ -1,0 +1,10 @@
+{
+  "namespace": "com.dinesh.springbootkafkaavro.model",
+  "type": "record",
+  "name": "OrderMessage",
+  "fields": [
+    {"name": "orderId", "type": "string"},
+    {"name": "product", "type": "string"},
+    {"name": "quantity", "type": "int"}
+  ]
+}
