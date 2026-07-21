@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Spring Boot Kafka Examples</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,Helvetica,sans-serif;
+        }
+
+        body{
+            background:#f4f6f9;
+            color:#333;
+        }
+
+        header{
+            background:#0d1117;
+            color:#fff;
+            text-align:center;
+            padding:40px 20px;
+        }
+
+        header h1{
+            font-size:36px;
+        }
+
+        header p{
+            margin-top:10px;
+            color:#d0d7de;
+        }
+
+        .container{
+            width:90%;
+            max-width:1200px;
+            margin:auto;
+            padding:40px 0;
+        }
+
+        h2{
+            margin-bottom:15px;
+            color:#0d1117;
+        }
+
+        .cards{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+            gap:20px;
+            margin-top:20px;
+        }
+
+        .card{
+            background:#fff;
+            border-radius:8px;
+            padding:25px;
+            box-shadow:0 2px 10px rgba(0,0,0,.1);
+        }
+
+        .card h3{
+            color:#198754;
+            margin-bottom:15px;
+        }
+
+        .card ul{
+            margin-left:18px;
+            line-height:28px;
+        }
+
+        .button{
+            display:inline-block;
+            margin-top:20px;
+            background:#198754;
+            color:#fff;
+            padding:10px 18px;
+            text-decoration:none;
+            border-radius:5px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        table th{
+            background:#198754;
+            color:white;
+            padding:12px;
+        }
+
+        table td{
+            border:1px solid #ddd;
+            padding:10px;
+        }
+
+        footer{
+            margin-top:50px;
+            background:#0d1117;
+            color:white;
+            text-align:center;
+            padding:20px;
+        }
+
+        code{
+            background:#efefef;
+            padding:2px 6px;
+            border-radius:4px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>Spring Boot Kafka Examples</h1>
+
+    <p>Collection of Spring Boot Kafka projects demonstrating different serialization techniques.</p>
+
+</header>
+
+<div class="container">
+
+    <h2>Overview</h2>
+
+    <p>
+
+        This repository demonstrates multiple approaches for publishing and consuming Kafka messages using Spring Boot.
+
+        Each project is independent and focuses on a different serialization strategy.
+
+    </p>
+
+    <br>
+
+    <table>
+
+        <tr>
+
+            <th>Project</th>
+
+            <th>Description</th>
+
+            <th>Serialization</th>
+
+        </tr>
+
+        <tr>
+
+            <td>Spring Boot Kafka Simple</td>
+
+            <td>Producer & Consumer using String and JSON messages.</td>
+
+            <td>String / JSON</td>
+
+        </tr>
+
+        <tr>
+
+            <td>Spring Boot Kafka Protobuf</td>
+
+            <td>Kafka integration using Google Protocol Buffers.</td>
+
+            <td>Protocol Buffers</td>
+
+        </tr>
+
+        <tr>
+
+            <td>Spring Boot Kafka Avro</td>
+
+            <td>Kafka integration using Apache Avro.</td>
+
+            <td>Apache Avro</td>
+
+        </tr>
+
+    </table>
+
+    <br>
+
+    <h2>Projects</h2>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>Spring Boot Kafka Simple</h3>
+
+            <ul>
+
+                <li>Kafka Producer</li>
+
+                <li>Kafka Consumer</li>
+
+                <li>String Messages</li>
+
+                <li>JSON Messages</li>
+
+                <li>REST APIs</li>
+
+                <li>Docker Compose</li>
+
+                <li>Kafka UI</li>
+
+                <li>AKHQ Dashboard</li>
+
+            </ul>
+
+            <a class="button" href="../spring-boot-kafka-simple/README.md">View Project</a>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Spring Boot Kafka Protobuf</h3>
+
+            <ul>
+
+                <li>Google Protocol Buffers</li>
+
+                <li>Schema Registry</li>
+
+                <li>Kafka Producer</li>
+
+                <li>Kafka Consumer</li>
+
+                <li>REST APIs</li>
+
+                <li>Kafka UI</li>
+
+                <li>DTO Mapping</li>
+
+                <li>Docker Compose</li>
+
+            </ul>
+
+            <a class="button" href="../spring-boot-kafka-protobuf/README.md">View Project</a>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Spring Boot Kafka Avro</h3>
+
+            <ul>
+
+                <li>Apache Avro</li>
+
+                <li>Schema Registry</li>
+
+                <li>Kafka Producer</li>
+
+                <li>Kafka Consumer</li>
+
+                <li>REST APIs</li>
+
+                <li>Kafka UI</li>
+
+                <li>Docker Compose</li>
+
+                <li>Avro Schema</li>
+
+            </ul>
+
+            <a class="button" href="../spring-boot-kafka-avro/README.md">View Project</a>
+
+        </div>
+
+    </div>
+
+    <br><br>
+
+    <h2>Technology Stack</h2>
+
+    <ul>
+
+        <li>Java 21</li>
+
+        <li>Spring Boot</li>
+
+        <li>Spring Kafka</li>
+
+        <li>Apache Kafka</li>
+
+        <li>Google Protocol Buffers</li>
+
+        <li>Apache Avro</li>
+
+        <li>Confluent Schema Registry</li>
+
+        <li>Docker</li>
+
+        <li>Docker Compose</li>
+
+        <li>Maven</li>
+
+    </ul>
+
+    <br>
+
+    <h2>Repository Structure</h2>
+
+    <pre>
+
+spring-boot-kafka
+│
+├── spring-boot-kafka-simple
+├── spring-boot-kafka-protobuf
+├── spring-boot-kafka-avro
+└── docs
+    └── index.html
+
+</pre>
+
+    <h2>Quick Start</h2>
+
+    <pre>
+
+git clone https://github.com/dinesh-veer/spring-boot-kafka.git
+
+cd spring-boot-kafka
+
+docker compose up -d
+
+mvn clean install
+
+</pre>
+
+    <h2>Comparison</h2>
+
+    <table>
+
+        <tr>
+
+            <th>Feature</th>
+
+            <th>Simple</th>
+
+            <th>Protobuf</th>
+
+            <th>Avro</th>
+
+        </tr>
+
+        <tr>
+
+            <td>String Messages</td>
+
+            <td>✔</td>
+
+            <td>—</td>
+
+            <td>—</td>
+
+        </tr>
+
+        <tr>
+
+            <td>JSON Messages</td>
+
+            <td>✔</td>
+
+            <td>—</td>
+
+            <td>—</td>
+
+        </tr>
+
+        <tr>
+
+            <td>Protocol Buffers</td>
+
+            <td>—</td>
+
+            <td>✔</td>
+
+            <td>—</td>
+
+        </tr>
+
+        <tr>
+
+            <td>Apache Avro</td>
+
+            <td>—</td>
+
+            <td>—</td>
+
+            <td>✔</td>
+
+        </tr>
+
+        <tr>
+
+            <td>Schema Registry</td>
+
+            <td>—</td>
+
+            <td>✔</td>
+
+            <td>✔</td>
+
+        </tr>
+
+        <tr>
+
+            <td>Kafka Producer</td>
+
+            <td>✔</td>
+
+            <td>✔</td>
+
+            <td>✔</td>
+
+        </tr>
+
+        <tr>
+
+            <td>Kafka Consumer</td>
+
+            <td>✔</td>
+
+            <td>✔</td>
+
+            <td>✔</td>
+
+        </tr>
+
+        <tr>
+
+            <td>Docker</td>
+
+            <td>✔</td>
+
+            <td>✔</td>
+
+            <td>✔</td>
+
+        </tr>
+
+    </table>
+
+</div>
+
+<footer>
+
+    <p>
+
+        Developed by <strong>Dinesh Veer</strong>
+
+        <br><br>
+
+        Apache Kafka • Spring Boot • Java 21
+
+    </p>
+
+</footer>
+
+</body>
+
+</html>
